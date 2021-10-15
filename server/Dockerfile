@@ -10,6 +10,7 @@ ADD ${FRP_URL} /tmp/frp.tar.gz
 RUN tar --strip 1 -xvzf /tmp/frp.tar.gz -C /opt/frp && rm /tmp/frp.tar.gz
 
 ADD frps.ini /opt/frp
+ADD 404.html /opt/frp
 ADD entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
