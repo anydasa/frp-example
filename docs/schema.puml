@@ -1,0 +1,25 @@
+@startuml
+skinparam packageStyle rect
+'left to right direction
+actor QA as user1
+actor Developer as user2
+actor "Callback" as user3
+
+rectangle Server {
+    user1 ---> (Nginx) : https:443
+    user2 ---> (Nginx) : https:443
+    user3 ---> (Nginx) : https:443
+
+    (Nginx) ==> (Fast Reverse Proxy Server) : http:80
+}
+rectangle "Client" {
+    (Fast Reverse Proxy Server) -right---> (Fast Reverse Proxy Client) : tcp:7000
+    (Fast Reverse Proxy Server) <.[#black] (Fast Reverse Proxy Client) : create tunnel
+    (Fast Reverse Proxy Client) ..> (Nginx Client) : http:8081
+    (Fast Reverse Proxy Client) ..> (Nginx Client) : http:8082
+    (Fast Reverse Proxy Client) ..> (Nginx Client) : http:8083
+    (Nginx Client) --> (app php-fpm) : tcp:9000
+    Note right of (Fast Reverse Proxy Client): 8081 - www.example.com \n8082 - admin.example.com \n8083 - api.example.com
+}
+
+@enduml
