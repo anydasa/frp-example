@@ -18,7 +18,7 @@ Run in docker
 ```bash
   cd ./server
   cp .env.example .env
-  # 
-  docker run --rm --env-file .env -p 7000:7000 -p 7500:7500 $(docker build -q .)
+  docker build . -t frp
+  docker run -d --restart unless-stopped --name frp-server --env-file .env -p 7000:7000 -p 7500:7500 frp
 ```
 ---
