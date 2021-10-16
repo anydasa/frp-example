@@ -1,4 +1,4 @@
-# Fast Reverse Proxy
+# Example of use Fast Reverse Proxy with Docker
 
 https://github.com/fatedier/frp/
 
