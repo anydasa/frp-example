@@ -23,3 +23,12 @@ Run in docker
   docker-compose up -d
 ```
 ---
+### Client
+Run in docker
+```bash
+  cd ./client
+  cp .env.example .env
+  # change variables in .env
+  docker-compose build
+  docker-compose up -d
+```
