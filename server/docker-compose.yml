@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  proxy:
+    build: docker
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+      - "7500:7500"
+    env_file:
+      - .env

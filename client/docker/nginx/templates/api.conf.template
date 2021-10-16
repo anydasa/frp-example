@@ -1,0 +1,20 @@
+server {
+    listen 8083;
+    server_name _;
+
+    root /var/www/html/api;
+    try_files $uri @fastcgi;
+
+    location ~ \.(svn|git|htaccess|htpasswd) {
+        return 404;
+    }
+
+    location @fastcgi {
+        fastcgi_pass app:9000;
+        include fastcgi_params;
+        fastcgi_param SERVER_NAME $host;
+        fastcgi_param HOSTNAME docker;
+        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+    }
+}
+

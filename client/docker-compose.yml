@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+
+  proxy:
+    build: docker/proxy
+    depends_on:
+      - webserver
+    environment:
+      PERSONAL_ALIAS: ${REVERSE_PROXY_PERSONAL_ALIAS}
+      SERVER_HOST: ${REVERSE_PROXY_SERVER_HOST}
+      SERVER_TOKEN: ${REVERSE_PROXY_SERVER_TOKEN}
+      SERVER_PORT: ${REVERSE_PROXY_SERVER_PORT}
+      BASIC_AUTH_USER:
+      BASIC_AUTH_PASS:
+
+  webserver:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./docker/nginx/templates:/etc/nginx/templates
+    depends_on:
+      - app
+
+  app:
+    image: php:8-fpm-alpine
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
